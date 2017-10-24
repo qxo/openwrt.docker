@@ -1,9 +1,10 @@
-ALL_VERSIONS := 10.03 10.03.1 12.09 14.07 15.05
+ALL_VERSIONS := 10.03 10.03.1 12.09 14.07 15.05 15.05.1 
 ALL_ARCHS := x86 x64
-LATEST_VERSION := 15.05
+LATEST_VERSION := 15.05.1
 
-VERSION ?= 15.05
-ARCH ?= x86
+#VERSION ?= 15.05.1
+VERSION ?= snapshots
+ARCH ?= x64
 
 TAG := $(VERSION)-$(ARCH)
 ifeq ($(VERSION),latest)
@@ -11,9 +12,18 @@ ifeq ($(VERSION),latest)
 endif
 
 # VERSIONS
+ifeq ($(TAG),snapshots-x64)
+	ROOTFS_URL := https://downloads.openwrt.org/snapshots/trunk/x86/64/openwrt-x86-64-generic-rootfs.tar.gz 
+endif
+
+ifeq ($(TAG),15.05.1-x64)
+        ROOTFS_URL := https://downloads.openwrt.org/chaos_calmer/15.05.1/x86/64/openwrt-15.05.1-x86-64-rootfs.tar.gz
+endif
+
 ifeq ($(TAG),15.05-x64)
 	ROOTFS_URL := https://downloads.openwrt.org/chaos_calmer/15.05/x86/64/openwrt-15.05-x86-64-rootfs.tar.gz
 endif
+
 ifeq ($(TAG),15.05-x86)
 	ROOTFS_URL := https://downloads.openwrt.org/chaos_calmer/15.05/x86/generic/openwrt-15.05-x86-generic-Generic-rootfs.tar.gz
 endif
